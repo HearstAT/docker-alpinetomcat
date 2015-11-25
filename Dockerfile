@@ -18,6 +18,7 @@ RUN addgroup tomcat && \
     adduser -h $CATALINA_HOME -D -s /bin/bash -G tomcat tomcat
 
 RUN chown -R tomcat:tomcat /opt
+RUN chmod -R g-s /opt
 
 USER tomcat
 
@@ -27,7 +28,8 @@ RUN set -x \
     && curl -fSL "$TOMCAT_URL" -o tomcat.tar.gz \
     && tar -xvf tomcat.tar.gz --strip-components=1 \
     && rm bin/*.bat \
-    && rm tomcat.tar.gz*
+    && rm tomcat.tar.gz* \
+    && rm -rf webapps/*
 
 VOLUME $CATALINA_HOME/webapps
 
