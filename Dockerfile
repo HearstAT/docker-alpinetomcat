@@ -2,7 +2,7 @@ FROM hearstat/alpine-java:openjdk8
 
 MAINTAINER Hearst Automation Team <atat@hearst.com>
 
-ENV TOMCAT_VERSION 7.0.8
+ENV TOMCAT_VERSION 7.0.65
 ENV TOMCAT_URL https://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 
 RUN apk add --update \
@@ -30,7 +30,5 @@ RUN set -x \
     && rm bin/*.bat \
     && rm tomcat.tar.gz* \
     && rm -rf webapps/*
-
-VOLUME $CATALINA_HOME/webapps
 
 EXPOSE 8080
