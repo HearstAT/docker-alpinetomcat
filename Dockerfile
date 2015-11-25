@@ -17,7 +17,7 @@ RUN mkdir -p $CATALINA_HOME
 RUN addgroup tomcat && \
     adduser -h $CATALINA_HOME -D -s /bin/bash -G tomcat tomcat
 
-RUN chown -R tomcat:tomcat $CATALINA_HOME
+RUN chown -R tomcat:tomcat /opt
 
 USER tomcat
 
