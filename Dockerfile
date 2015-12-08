@@ -13,22 +13,20 @@ RUN apk add --update \
 ENV CATALINA_HOME /opt/tomcat
 ENV PATH $PATH:$CATALINA_HOME/bin
 
-RUN mkdir -p $CATALINA_HOME
-RUN addgroup tomcat && \
-    adduser -h $CATALINA_HOME -D -s /bin/bash -G tomcat tomcat
-
-RUN chown -R tomcat:tomcat /opt
-RUN chmod -R g-s /opt
+RUN mkdir -p $CATALINA_HOME\
+    && addgroup tomcat\
+    && adduser -h $CATALINA_HOME -D -s /bin/bash -G tomcat tomcat\
+    && set -x \
+    && curl -fSL "$TOMCAT_URL" -o tomcat.tar.gz \
+    && tar -xvf tomcat.tar.gz --strip-components=1 \
+    && chown -R tomcat:tomcat $CATALINA_HOME\
+    && chmod -R g-s /opt\
+    && rm bin/*.bat \
+    && rm tomcat.tar.gz* \
+    && rm -rf webapps/*
 
 USER tomcat
 
 WORKDIR $CATALINA_HOME
-
-RUN set -x \
-    && curl -fSL "$TOMCAT_URL" -o tomcat.tar.gz \
-    && tar -xvf tomcat.tar.gz --strip-components=1 \
-    && rm bin/*.bat \
-    && rm tomcat.tar.gz* \
-    && rm -rf webapps/*
 
 EXPOSE 8080
