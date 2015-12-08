@@ -17,6 +17,7 @@ RUN mkdir -p $CATALINA_HOME\
     && addgroup tomcat\
     && adduser -h $CATALINA_HOME -D -s /bin/bash -G tomcat tomcat\
     && set -x \
+    && cd $CATALINA_HOME\
     && curl -fSL "$TOMCAT_URL" -o tomcat.tar.gz \
     && tar -xvf tomcat.tar.gz --strip-components=1 \
     && chown -R tomcat:tomcat $CATALINA_HOME\
